@@ -12,3 +12,11 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Boards {
+  id Int @id @default(autoincrement())
+  title String
+  category String
+  imageUrl String
+  author String
+}
