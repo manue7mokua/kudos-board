@@ -1,0 +1,46 @@
+/* Center the content on the page */
+.board-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 4px solid olive;
+    border-radius: 8px;
+}
+.board-image {
+    width: 300px;
+}
+/* Add margin around buttons and sidebar */
+.filter-buttons {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Add padding to each element */
+.boards {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin: 20px;
+}
+
+.button {
+    padding: 8px;
+}
+
+/* Change text color of buttons to olive green */
+.button {
+    color: #3E8E41; /* Olive green */
+}
