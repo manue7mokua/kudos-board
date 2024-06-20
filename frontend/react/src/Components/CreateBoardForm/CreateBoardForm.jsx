@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './CreateBoardForm.css'
-import { useNavigate } from 'react-router-dom';
 
 const CreateBoardForm = () => {
   const [title, setTitle] = useState('');
@@ -10,7 +9,6 @@ const CreateBoardForm = () => {
   const [author, setAuthor] = useState('');
 
   const [isOpen, setIsOpen] = useState(true); // Open or close the form modal
-  const navigate= useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,7 +31,7 @@ const CreateBoardForm = () => {
 
   const onClose = () => {
     setIsOpen(false);
-    navigate.push('/'); // Go back to main home page
+    window.location.href = '/'; // Close both the modal and the overlay
   };
 
   return (
@@ -74,7 +72,8 @@ const CreateBoardForm = () => {
           <button type="button" onClick={onClose}>Close</button>
         </form>
       )}
-      {!isOpen && <p>Form is closed</p>}
+      {!isOpen && <p>Form is closed</p>
+      }
     </div>
 
   );
