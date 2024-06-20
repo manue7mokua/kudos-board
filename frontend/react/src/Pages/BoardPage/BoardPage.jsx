@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import image2 from '../../assets/sprinter.jpg'
+import './BoardPage.css'
 
-const BoardPage= ({ boardId }) => {
+const BoardPage = ({ boardId }) => {
   const [data, setData] = useState(null);
 
   // API data fetch setup
@@ -27,14 +28,22 @@ const BoardPage= ({ boardId }) => {
     <div>
       <h2>{hardcodedData.title}</h2>
       <p>{hardcodedData.description}</p>
-      <ul>
-        {hardcodedData.cards.map((card) => (
-          <li key={card.id}>
-            <img src={card.image} alt={card.content} />
-            {card.content}
-          </li>
+        <div className='board-cards'>
+           {hardcodedData.cards.map((card) => (
+          <div key={card.id} className='card'>
+            <img src={card.image} alt={card.content} className='board-image'/>
+            <h2>{card.content}</h2>
+            <p>Category: {card.category}</p>
+            <p>Author: {card.author}</p>
+            {/* board page link setup */}
+            {/* <Link to={`/boards/${card.id}`}>View Board</Link> */}
+            <div className='board-buttons'>
+              <button onClick={() => upvoteCard(card.id)}>Upvote</button>
+              <button onClick={() => deleteCard(card.id)}>Delete Card</button>
+            </div>
+          </div>
         ))}
-      </ul>
+        </div>
       <form>
         <input type="text" placeholder="Add a new card" />
         <button type="submit">Add Card</button>

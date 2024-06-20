@@ -4,7 +4,7 @@ import image3 from '../../assets/vikings.jpeg'
 import './BoardGrid.css'
 import CreateBoardForm from '../CreateBoardForm/CreateBoardForm';
 import axios from 'axios';
-import BoardDetails from '../BoardDetails/BoardDetails';
+import BoardPage from '../../Pages/BoardPage/BoardPage';
 
 const BoardGrid = () => {
   const [boards, setBoards] = useState([
