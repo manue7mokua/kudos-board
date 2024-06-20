@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import image2 from '../../assets/sprinter.jpg'
 import './BoardPage.css'
+import CreateCardForm from '../../Components/CreateCardForm/CreateCardForm';
 
 const BoardPage = ({ boardId }) => {
   const [data, setData] = useState(null);
+
+  const [showModal, setShowModal] = useState(false);
+  const handleCreateNewCardClick = () => {
+    setShowModal(true);
+  };
 
   // API data fetch setup
   useEffect(() => {
@@ -26,6 +32,13 @@ const BoardPage = ({ boardId }) => {
 
   return (
     <div>
+     <button onClick={handleCreateNewCardClick} >Create New Card</button>
+      {showModal && (
+        <div className='modal-overlay'>
+          <CreateCardForm boardId={boardId} onHide={() =>
+            setShowModal(false)} />
+        </div>
+      )}
       <h2>{hardcodedData.title}</h2>
       <p>{hardcodedData.description}</p>
         <div className='board-cards'>
@@ -44,10 +57,6 @@ const BoardPage = ({ boardId }) => {
           </div>
         ))}
         </div>
-      <form>
-        <input type="text" placeholder="Add a new card" />
-        <button type="submit">Add Card</button>
-      </form>
     </div>
   );
 };
