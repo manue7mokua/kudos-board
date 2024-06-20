@@ -62,9 +62,11 @@ const BoardGrid = () => {
 
   const viewBoard = (boardId) => {
     // navigate to the board's details page
-    window.location.href = `/boards/${boardId}`;
+    window.location.href = (`/boards/${boardId}`);
     setSelectedBoard(boardId);
   }
+
+  // Board deletion setup
   const deleteBoard = (boardId) => {
     // will make an API request to delete the board
     axios.delete(`/api/boards/${boardId}`)
@@ -108,7 +110,7 @@ const BoardGrid = () => {
           </div>
         ))}
       </div>
-      {selectedBoard && <BoardDetails boardId={selectedBoard}/>}
+      {selectedBoard && <BoardPage boardId={selectedBoard}/>}
     </div>
   );
 };
