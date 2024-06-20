@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import image3 from '../../assets/vikings.jpeg'
 import './BoardGrid.css'
 import CreateBoardForm from '../CreateBoardForm/CreateBoardForm';
+import axios from 'axios';
+import BoardDetails from '../BoardDetails/BoardDetails';
 
 const BoardGrid = () => {
   const [boards, setBoards] = useState([
@@ -32,6 +34,8 @@ const BoardGrid = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
+  const [selectedBoard, setSelectedBoard] = useState(null);
+
   const [showModal, setShowModal] = useState(false);
   const handleCreateNewBoardClick = () => {
     setShowModal(true);
@@ -55,6 +59,23 @@ const BoardGrid = () => {
     setSearchQuery(event.target.value);
     setFilteredBoards(boards.filter(board => board.title.includes(searchQuery)));
   };
+
+  const viewBoard = (boardId) => {
+    // navigate to the board's details page
+    window.location.href = `/boards/${boardId}`;
+    setSelectedBoard(boardId);
+  }
+  const deleteBoard = (boardId) => {
+    // will make an API request to delete the board
+    axios.delete(`/api/boards/${boardId}`)
+      .then(response => {
+        // update the boards state to remove the deleted board
+        setBoards(boards.filter(board => board.id !== boardId));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   return (
     <div className='board-grid'>
@@ -80,9 +101,14 @@ const BoardGrid = () => {
             <p>{board.author}</p>
             {/* board page link setup */}
             {/* <Link to={`/boards/${board.id}`}>View Board</Link> */}
+            <div className='board-buttons'>
+            <button onClick={() => viewBoard(board.id)}>View Board</button>
+            <button onClick={() => deleteBoard(board.id)}>Delete Board</button>
+            </div>
           </div>
         ))}
       </div>
+      {selectedBoard && <BoardDetails boardId={selectedBoard}/>}
     </div>
   );
 };
