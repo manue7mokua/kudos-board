@@ -1,0 +1,47 @@
+.create-board-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px;
+    border: 2px solid olive green;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+  }
+
+  .create-board-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .create-board-form input[type="text"],
+  .create-board-form input[type="email"],
+  .create-board-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .create-board-form button[type="submit"] {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: olive green;
+    color: #fff;
+    cursor: pointer;
+  }
+
+.board-form-container {
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

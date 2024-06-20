@@ -28,7 +28,8 @@ const CreateBoardForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className='board-form-container'>
+      <form onSubmit={handleSubmit} className='create-board-form'>
       <label>
         Title:
         <input type="text" value={title} onChange={(event) => setTitle(event.target.value)} />
@@ -61,6 +62,8 @@ const CreateBoardForm = () => {
       <br />
       <button type="submit">Create Board</button>
     </form>
+    </div>
+
   );
 };
 

@@ -67,7 +67,8 @@ const BoardGrid = () => {
       </div>
 
       <button onClick={handleCreateNewBoardClick} >Create New Board</button>
-      {showModal && (<CreateBoardForm onHide={() => setShowModal(false)}/>)}
+      {showModal && (<div className='modal-overlay'>
+        <CreateBoardForm onHide={() => setShowModal(false)}/></div>)}
 
       <input type="search" value={searchQuery} onChange={handleSearchChange} placeholder='Search for a board...'/>
       <div className="boards">
