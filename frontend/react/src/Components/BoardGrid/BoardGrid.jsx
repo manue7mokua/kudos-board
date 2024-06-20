@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import image3 from '../../assets/vikings.jpeg'
 import './BoardGrid.css'
+import CreateBoardForm from '../CreateBoardForm/CreateBoardForm';
 
 const BoardGrid = () => {
   const [boards, setBoards] = useState([
@@ -31,6 +32,11 @@ const BoardGrid = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
+  const [showModal, setShowModal] = useState(false);
+  const handleCreateNewBoardClick = () => {
+    setShowModal(true);
+  }
+
   // board data setup
   useEffect(() => {
     // fetch('/api/boards')
@@ -59,7 +65,11 @@ const BoardGrid = () => {
         <button onClick={() => handleFilterChange('thank-you')}>Thank You</button>
         <button onClick={() => handleFilterChange('inspiration')}>Inspiration</button>
       </div>
-      <input type="search" value={searchQuery} onChange={handleSearchChange} />
+
+      <button onClick={handleCreateNewBoardClick} >Create New Board</button>
+      {showModal && (<CreateBoardForm onHide={() => setShowModal(false)}/>)}
+
+      <input type="search" value={searchQuery} onChange={handleSearchChange} placeholder='Search for a board...'/>
       <div className="boards">
         {filteredBoards.map((board) => (
           <div key={board.id} className="board">
