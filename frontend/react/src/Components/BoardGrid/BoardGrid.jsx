@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import image3 from '../../assets/vikings.jpeg'
 import './Boardgrid.css'
+
 import CreateBoardForm from '../CreateBoardForm/CreateBoardForm';
 import axios from 'axios';
 import BoardPage from '../../Pages/BoardPage/BoardPage';
 import {dashboardData, addBoardData} from '../../boardapi';
+
+import img1 from '../../assets/band4band.jpeg';
+import img2 from '../../assets/studentlife.jpg';
+import img3 from '../../assets/margin-call.jpeg';
+import img4 from '../../assets/one-piece.jpg';
+import img5 from '../../assets/suits.jpeg';
+import img6 from '../../assets/vikings.jpeg';
+import img7 from '../../assets/sprinter.jpg';
+import img8 from '../../assets/succession.jpg';
+import img9 from '../../assets/poetryclub.jpg';
 
 const BoardGrid = () => {
   const [boards, setBoards] = useState([]);
@@ -15,8 +26,11 @@ const BoardGrid = () => {
   const [selectedBoard, setSelectedBoard] = useState(null);
 
   const [showModal, setShowModal] = useState(false);
-  const handleCreateNewBoardClick = () => {
+
+  const handleCreateNewBoardClick = (boardInfo) => {
     setShowModal(true);
+    console.log(boardInfo)
+    addBoardData(boardInfo);
   }
 
   // board data setup
@@ -27,6 +41,8 @@ const BoardGrid = () => {
       }
     )
   }, []);
+  console.log(dashboardData())
+  console.log(boards)
 
   // Filter functionality setup
   const handleFilterChange = (category) => {
@@ -44,24 +60,24 @@ const BoardGrid = () => {
     // navigate to the board's details page
     window.location.href = (`/boards/${boardId}`);
     setSelectedBoard(boardId);
+    console.log(selectedBoard)
   }
 
   // Board deletion setup
-  const deleteBoard = (boardId) => {
-    // will make an API request to delete the board
-    axios.delete(`/api/boards/${boardId}`)
-      .then(response => {
-        // update the boards state to remove the deleted board
-        setBoards(boards.filter(board => board.id !== boardId));
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
+  // const deleteBoard = (boardId) => {
+  //   // will make an API request to delete the board
+  //   axios.delete(`/api/boards/${boardId}`)
+  //     .then(response => {
+  //       // update the boards state to remove the deleted board
+  //       setBoards(boards.filter(board => board.id !== boardId));
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }
 
   const handleButtonClick = () => {
-    handleCreateNewBoardClick()
-    addBoardData("title467545", "erhgre", "gdgd")
+    handleCreateNewBoardClick();
   }
 
   return (
@@ -76,18 +92,17 @@ const BoardGrid = () => {
 
       <button onClick={handleButtonClick} >Create New Board</button>
       {showModal && (<div className='modal-overlay'>
-        <CreateBoardForm onHide={() => setShowModal(false)}/></div>)}
+        <CreateBoardForm onSubmit={handleCreateNewBoardClick} onHide={() => setShowModal(false)}/></div>)}
 
       <input type="search" value={searchQuery} onChange={handleSearchChange} placeholder='Search for a board...'/>
       <div className="boards">
         {boards.map((board) => (
           <div key={board.id} className="board">
-            <img src={board.image} alt={board.title} className='board-image'/>
+            <img src={`https://picsum.photos/200/300?random=${board.id}`} alt={board.title} className='board-image'/>
             <h2>{board.title}</h2>
             <p>{board.category}</p>
             <p>{board.author}</p>
-            {/* board page link setup */}
-            {/* <Link to={`/boards/${board.id}`}>View Board</Link> */}
+
             <div className='board-buttons'>
             <button onClick={() => viewBoard(board.id)}>View Board</button>
             <button onClick={() => deleteBoard(board.id)}>Delete Board</button>

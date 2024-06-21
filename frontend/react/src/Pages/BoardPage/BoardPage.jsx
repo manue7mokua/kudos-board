@@ -3,32 +3,35 @@ import axios from 'axios';
 import image2 from '../../assets/sprinter.jpg'
 import './BoardPage.css'
 import CreateCardForm from '../../Components/CreateCardForm/CreateCardForm';
+import { specificBoardCardsData } from '../../boardapi';
 
 const BoardPage = ({ boardId }) => {
-  const [data, setData] = useState(null);
+  const [cards, setCards] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const handleCreateNewCardClick = () => {
     setShowModal(true);
   };
 
-  // API data fetch setup
+  // API data fetch setup for the cards
   useEffect(() => {
-    axios.get(`/api/boards/${boardId}`)
-      .then(response => setData(response.data))
+    console.log(boardId)
+    specificBoardCardsData(boardId)
+      .then(response => setCards(response))
       .catch(error => console.error(error));
   }, [boardId]);
+  console.log(specificBoardCardsData())
 
   // Hard-coded data for testing
-  const hardcodedData = {
-    title: 'Test Board',
-    description: 'This is a test board',
-    cards: [
-      { id: 1, content: 'Card 1', image: image2 },
-      { id: 2, content: 'Card 2', image: image2 },
-      { id: 3, content: 'Card 3', image: image2 },
-    ],
-  };
+  // const hardcodedData = {
+  //   title: 'Test Board',
+  //   description: 'This is a test board',
+  //   cards: [
+  //     { id: 1, content: 'Card 1', image: image2 },
+  //     { id: 2, content: 'Card 2', image: image2 },
+  //     { id: 3, content: 'Card 3', image: image2 },
+  //   ],
+  // };
 
   return (
     <div>
@@ -39,17 +42,14 @@ const BoardPage = ({ boardId }) => {
             setShowModal(false)} />
         </div>
       )}
-      <h2>{hardcodedData.title}</h2>
-      <p>{hardcodedData.description}</p>
+      <h2>Board Cards</h2>
         <div className='board-cards'>
-           {hardcodedData.cards.map((card) => (
+           {cards.map((card) => (
           <div key={card.id} className='card'>
-            <img src={card.image} alt={card.content} className='board-image'/>
-            <h2>{card.content}</h2>
-            <p>Category: {card.category}</p>
+            <img src={card.image} alt={card.description} className='board-image'/>
+            <h4>{card.description}</h4>
             <p>Author: {card.author}</p>
-            {/* board page link setup */}
-            {/* <Link to={`/boards/${card.id}`}>View Board</Link> */}
+
             <div className='board-buttons'>
               <button onClick={() => upvoteCard(card.id)}>Upvote</button>
               <button onClick={() => deleteCard(card.id)}>Delete Card</button>

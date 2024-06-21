@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import './CreateBoardForm.css'
 
-const CreateBoardForm = () => {
+const CreateBoardForm = ({ onSubmit }) => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState('');
   const [author, setAuthor] = useState('');
 
   const [isOpen, setIsOpen] = useState(true); // Open or close the form modal
@@ -13,20 +12,20 @@ const CreateBoardForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Validate form data
-    if (!title || !description || !category || !image) {
+    if (!title || !category || !image || !author) {
       alert('Please fill out all required fields');
       return;
     }
     // Create new board
     const newBoard = {
       title,
-      description,
       category,
       image,
-      author: author || null
+      author
     };
-    // Save new board to database or API
-    // ...
+    // Call the onSubmit callback with the new board object
+    onSubmit(newBoard);
+    console.log(newBoard)
   };
 
   const onClose = () => {
@@ -44,11 +43,6 @@ const CreateBoardForm = () => {
           </label>
           <br />
           <label>
-            Description:
-            <textarea value={description} onChange={(event) => setDescription(event.target.value)} />
-          </label>
-          <br />
-          <label>
             Category:
             <select value={category} onChange={(event) => setCategory(event.target.value)}>
               <option value="">Select a category</option>
@@ -60,7 +54,7 @@ const CreateBoardForm = () => {
           <br />
           <label>
             Image:
-            <input type="file" accept="image/*" onChange={(event) => setImage(event.target.files[0])} />
+            <input type="text" value={image} onChange={(event) => setImage(event.target.value)} />
           </label>
           <br />
           <label>
