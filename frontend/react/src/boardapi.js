@@ -22,6 +22,11 @@ const addBoardData = async (boardInfo) => {
     return response.data;
 }
 
+const deleteBoard = async (boardId) => {
+    const response = await axios.delete(`http://localhost:3000/boards/${boardId}`);
+    return response.data;
+  }
+
 const specificBoardCardsData = async (boardId) => {
     console.log(boardId)
     const response = await axios.get(`http://localhost:3000/boards/${boardId}`);
@@ -41,4 +46,4 @@ const addCardData = async (cardInfo, boardId) => {
 }
 
 // export default dashboardData;B
-export { dashboardData, addBoardData, specificBoardCardsData, addCardData }
+export { dashboardData, addBoardData, specificBoardCardsData, addCardData, deleteBoard }

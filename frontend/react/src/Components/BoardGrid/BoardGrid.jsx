@@ -4,7 +4,7 @@ import './Boardgrid.css'
 import CreateBoardForm from '../CreateBoardForm/CreateBoardForm';
 import axios from 'axios';
 import BoardPage from '../../Pages/BoardPage/BoardPage';
-import {dashboardData, addBoardData, specificBoardCardsData} from '../../boardapi';
+import {dashboardData, addBoardData, specificBoardCardsData, deleteBoard} from '../../boardapi';
 import {Link} from 'react-router-dom';
 
 
@@ -56,20 +56,23 @@ const BoardGrid = () => {
   }
 
   // Board deletion setup
-  // const deleteBoard = (boardId) => {
-  //   // will make an API request to delete the board
-  //   axios.delete(`/api/boards/${boardId}`)
-  //     .then(response => {
-  //       // update the boards state to remove the deleted board
-  //       setBoards(boards.filter(board => board.id !== boardId));
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }
+  const deleteBoardFunc = (boardId) => {
+    // will make an API request to delete the board
+    // Call the new deleteBoard function
+    deleteBoard(boardId).then(() => {
+      // Update the boards state to remove the deleted board
+      setBoards(boards.filter(board => board.id !== boardId));
+    }).catch(error => {
+      console.error(error);
+    });
+  }
 
   const handleButtonClick = () => {
     handleCreateNewBoardClick();
+  }
+
+  const handleDeleteClick = () => {
+    deleteBoardFunc();
   }
 
   return (
@@ -99,7 +102,7 @@ const BoardGrid = () => {
             <Link to={"/boards/"+board.id}>
               <button /*onClick={() => viewBoard(board.id)}*/>View Board</button>
             </Link>
-            <button onClick={() => deleteBoard(board.id)}>Delete Board</button>
+            <button onClick={(handleDeleteClick) => deleteBoardFunc(board.id)}>Delete Board</button>
             </div>
           </div>
         ))}
