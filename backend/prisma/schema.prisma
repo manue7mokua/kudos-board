@@ -19,22 +19,15 @@ model Boards {
   category String
   imageUrl String?
   author String
+  cards Cards[]
 }
 
-// model Cards {
-//   id Int @id @default(autoincrement())
-//   title String
-
-// }
-
-// For each Card
-// - id REQUIRED
-// - card title REQUIRED
-// - board-id link with board(id) in Board db
-// - card message
-// - vote_count
-
-// Card comments table
-// - id REQUIRED
-// - card-id link with card(id) in Card db
-// - user_comment string
+model Cards {
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  searchField String
+  author String
+  board Boards @relation(fields: [boardId], references: [id])
+  boardId Int @unique
+}
