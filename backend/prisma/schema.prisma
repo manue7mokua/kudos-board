@@ -26,8 +26,8 @@ model Cards {
   id Int @id @default(autoincrement())
   title String
   description String
-  searchField String
+  upvote Int?
   author String
   board Boards @relation(fields: [boardId], references: [id])
-  boardId Int @unique
+  boardId Int
 }

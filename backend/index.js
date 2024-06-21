@@ -28,6 +28,49 @@ app.post("/boards", async (req, res) => {
     res.json(newBoard);
 });
 
+// app.get("/boards/:boardId/cards", async (req, res) => {
+//     const cards = await prisma.cards.findUnique();
+//     res.json(cards)
+// })
+
+app.get("/boards/:boardId", async (req, res) => {
+    const boardId = parseInt(req.params.boardId);
+
+    // console.log(boardId)
+
+    const cards = await prisma.cards.findMany(
+        {
+            where: {
+                boardId
+            }
+        }
+    );
+    res.json(cards);
+
+   // try {
+        // if (card.boardId === parseInt(boardId)) {
+        //     res.json(card);
+        // } else {
+        //     res.status(404).send("Card not found or does not belong to the specified board.");
+        // }
+    // } catch (error) {
+    //     res.status(500).send("An error occurred while fetching the card.");
+    // }
+});
+
+app.post("/boards/:boardId", async (req, res) => {
+    const {title, description, upvote, author} = req.body;
+    const newCard = await prisma.cards.create({
+        data: {
+            title,
+            description,
+            upvote,
+            author,
+            boardId
+        }
+    });
+    res.json(newCard);
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
