@@ -1,21 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import image3 from '../../assets/vikings.jpeg'
 import './Boardgrid.css'
 
 import CreateBoardForm from '../CreateBoardForm/CreateBoardForm';
 import axios from 'axios';
 import BoardPage from '../../Pages/BoardPage/BoardPage';
-import {dashboardData, addBoardData} from '../../boardapi';
+import {dashboardData, addBoardData, specificBoardCardsData} from '../../boardapi';
+import {Link} from 'react-router-dom';
 
-import img1 from '../../assets/band4band.jpeg';
-import img2 from '../../assets/studentlife.jpg';
-import img3 from '../../assets/margin-call.jpeg';
-import img4 from '../../assets/one-piece.jpg';
-import img5 from '../../assets/suits.jpeg';
-import img6 from '../../assets/vikings.jpeg';
-import img7 from '../../assets/sprinter.jpg';
-import img8 from '../../assets/succession.jpg';
-import img9 from '../../assets/poetryclub.jpg';
 
 const BoardGrid = () => {
   const [boards, setBoards] = useState([]);
@@ -23,13 +14,12 @@ const BoardGrid = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  const [selectedBoard, setSelectedBoard] = useState(null);
+  const [selectedBoardId, setSelectedBoardId] = useState(2);
 
   const [showModal, setShowModal] = useState(false);
 
   const handleCreateNewBoardClick = (boardInfo) => {
     setShowModal(true);
-    console.log(boardInfo)
     addBoardData(boardInfo);
   }
 
@@ -58,9 +48,11 @@ const BoardGrid = () => {
 
   const viewBoard = (boardId) => {
     // navigate to the board's details page
-    window.location.href = (`/boards/${boardId}`);
-    setSelectedBoard(boardId);
-    console.log(selectedBoard)
+    console.log(boardId)
+    var boardId = boardId;
+    // window.location.href = (`/boards/${boardId}`);
+    setSelectedBoardId(boardId);
+    console.log(boardId)
   }
 
   // Board deletion setup
@@ -104,13 +96,15 @@ const BoardGrid = () => {
             <p>{board.author}</p>
 
             <div className='board-buttons'>
-            <button onClick={() => viewBoard(board.id)}>View Board</button>
+            <Link to={"/boards/"+board.id}>
+              <button /*onClick={() => viewBoard(board.id)}*/>View Board</button>
+            </Link>
             <button onClick={() => deleteBoard(board.id)}>Delete Board</button>
             </div>
           </div>
         ))}
       </div>
-      {selectedBoard && <BoardPage boardId={selectedBoard}/>}
+      {/* {selectedBoardId && <BoardPage boardId={selectedBoardId}/>} */}
     </div>
   );
 };

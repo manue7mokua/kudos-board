@@ -24,9 +24,21 @@ const addBoardData = async (boardInfo) => {
 
 const specificBoardCardsData = async (boardId) => {
     console.log(boardId)
-    const response = await axios.get(`http://localhost:3000/boards/${boardId}/cards`);
+    const response = await axios.get(`http://localhost:3000/boards/${boardId}`);
+    return response.data;
+}
+
+const addCardData = async (cardInfo, boardId) => {
+    let title = cardInfo.title;
+    let description = cardInfo.description;
+    let category = cardInfo.catergory;
+    let author = cardInfo.author;
+    let imageUrl = cardInfo.imageUrl;
+    const body = JSON.stringify({title, description, category, author, imageUrl});
+
+    const response = await axios.post(`http://localhost:3000/boards/${boardId}`, body, config)
     return response.data;
 }
 
 // export default dashboardData;B
-export { dashboardData, addBoardData, specificBoardCardsData }
+export { dashboardData, addBoardData, specificBoardCardsData, addCardData }

@@ -4,15 +4,21 @@ import image2 from '../../assets/sprinter.jpg'
 import './BoardPage.css'
 import CreateCardForm from '../../Components/CreateCardForm/CreateCardForm';
 import { specificBoardCardsData } from '../../boardapi';
+import { useParams } from 'react-router-dom';
+import { addCardData } from '../../boardapi';
 
-const BoardPage = ({ boardId }) => {
+const BoardPage = () => {
+  const { boardId }= useParams();
+
   const [cards, setCards] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
-  const handleCreateNewCardClick = () => {
+  const handleCreateNewCardClick = (cardInfo) => {
+    console.log(cardInfo)
     setShowModal(true);
+    addCardData(cardInfo, boardId);
   };
-
+  console.log(boardId)
   // API data fetch setup for the cards
   useEffect(() => {
     console.log(boardId)
@@ -20,25 +26,19 @@ const BoardPage = ({ boardId }) => {
       .then(response => setCards(response))
       .catch(error => console.error(error));
   }, [boardId]);
-  console.log(specificBoardCardsData())
+  console.log(specificBoardCardsData(boardId))
 
-  // Hard-coded data for testing
-  // const hardcodedData = {
-  //   title: 'Test Board',
-  //   description: 'This is a test board',
-  //   cards: [
-  //     { id: 1, content: 'Card 1', image: image2 },
-  //     { id: 2, content: 'Card 2', image: image2 },
-  //     { id: 3, content: 'Card 3', image: image2 },
-  //   ],
-  // };
+  const handleButtonCardClick = () => {
+    handleCreateNewCardClick();
+  }
+
 
   return (
     <div>
-     <button onClick={handleCreateNewCardClick} >Create New Card</button>
+     <button onClick={handleButtonCardClick} >Create New Card</button>
       {showModal && (
         <div className='modal-overlay'>
-          <CreateCardForm boardId={boardId} onHide={() =>
+          <CreateCardForm boardId={boardId} onSubmit={handleCreateNewCardClick} onHide={() =>
             setShowModal(false)} />
         </div>
       )}
@@ -46,7 +46,7 @@ const BoardPage = ({ boardId }) => {
         <div className='board-cards'>
            {cards.map((card) => (
           <div key={card.id} className='card'>
-            <img src={card.image} alt={card.description} className='board-image'/>
+            <img src={card.imageUrl} alt={card.description} className='board-image'/>
             <h4>{card.description}</h4>
             <p>Author: {card.author}</p>
 
