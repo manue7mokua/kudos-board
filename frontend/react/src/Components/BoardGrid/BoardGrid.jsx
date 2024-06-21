@@ -1,35 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import image3 from '../../assets/vikings.jpeg'
-import './BoardGrid.css'
+import './Boardgrid.css'
 import CreateBoardForm from '../CreateBoardForm/CreateBoardForm';
 import axios from 'axios';
 import BoardPage from '../../Pages/BoardPage/BoardPage';
+import {dashboardData, addBoardData} from '../../boardapi';
 
 const BoardGrid = () => {
-  const [boards, setBoards] = useState([
-    {
-      id: 1,
-      title: "Board 1",
-      category: "Recent",
-      author: "John Doe",
-      image: image3
-    },
-    {
-      id: 2,
-      title: "Board 2",
-      category: "Celebration",
-      author: "Jane Doe",
-      image: image3
-    },
-    {
-      id: 3,
-      title: "Board 3",
-      category: "Thank You",
-      author: "Bob Smith",
-      image: image3
-    }
-  ]);
+  const [boards, setBoards] = useState([]);
   const [filteredBoards, setFilteredBoards] = useState(boards);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -43,9 +21,11 @@ const BoardGrid = () => {
 
   // board data setup
   useEffect(() => {
-    // fetch('/api/boards')
-    //   .then(response => response.json())
-    //   .then(data => setBoards(data));
+    dashboardData().then(
+      response => {
+        setBoards(response)
+      }
+    )
   }, []);
 
   // Filter functionality setup
@@ -79,6 +59,11 @@ const BoardGrid = () => {
       });
   }
 
+  const handleButtonClick = () => {
+    handleCreateNewBoardClick()
+    addBoardData("title467545", "erhgre", "gdgd")
+  }
+
   return (
     <div className='board-grid'>
       <h1>Board Grid</h1>
@@ -89,13 +74,13 @@ const BoardGrid = () => {
         <button onClick={() => handleFilterChange('inspiration')}>Inspiration</button>
       </div>
 
-      <button onClick={handleCreateNewBoardClick} >Create New Board</button>
+      <button onClick={handleButtonClick} >Create New Board</button>
       {showModal && (<div className='modal-overlay'>
         <CreateBoardForm onHide={() => setShowModal(false)}/></div>)}
 
       <input type="search" value={searchQuery} onChange={handleSearchChange} placeholder='Search for a board...'/>
       <div className="boards">
-        {filteredBoards.map((board) => (
+        {boards.map((board) => (
           <div key={board.id} className="board">
             <img src={board.image} alt={board.title} className='board-image'/>
             <h2>{board.title}</h2>
