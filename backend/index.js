@@ -28,10 +28,11 @@ app.post("/boards", async (req, res) => {
     res.json(newBoard);
 });
 
-// app.get("/boards/:boardId/cards", async (req, res) => {
-//     const cards = await prisma.cards.findUnique();
-//     res.json(cards)
-// })
+app.delete("/boards/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    await prisma.boards.delete({ where: { id } });
+    res.json({ message: "Board deleted successfully" });
+});
 
 app.get("/boards/:boardId", async (req, res) => {
     const boardId = parseInt(req.params.boardId);
@@ -46,16 +47,6 @@ app.get("/boards/:boardId", async (req, res) => {
         }
     );
     res.json(cards);
-
-   // try {
-        // if (card.boardId === parseInt(boardId)) {
-        //     res.json(card);
-        // } else {
-        //     res.status(404).send("Card not found or does not belong to the specified board.");
-        // }
-    // } catch (error) {
-    //     res.status(500).send("An error occurred while fetching the card.");
-    // }
 });
 
 app.post("/boards/:boardId", async (req, res) => {
