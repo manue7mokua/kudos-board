@@ -59,13 +59,16 @@ app.get("/boards/:boardId", async (req, res) => {
 });
 
 app.post("/boards/:boardId", async (req, res) => {
-    const {title, description, upvote, author} = req.body;
+    const {title, description, upvote, author, imageUrl} = req.body;
+    const boardId = parseInt(req.params.boardId);
+
     const newCard = await prisma.cards.create({
         data: {
             title,
             description,
             upvote,
             author,
+            imageUrl,
             boardId
         }
     });

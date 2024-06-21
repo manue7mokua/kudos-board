@@ -27,6 +27,7 @@ model Cards {
   title String
   description String
   upvote Int?
+  imageUrl String?
   author String
   board Boards @relation(fields: [boardId], references: [id])
   boardId Int
