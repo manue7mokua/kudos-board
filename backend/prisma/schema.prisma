@@ -17,6 +17,24 @@ model Boards {
   id Int @id @default(autoincrement())
   title String
   category String
-  imageUrl String
+  imageUrl String?
   author String
 }
+
+// model Cards {
+//   id Int @id @default(autoincrement())
+//   title String
+
+// }
+
+// For each Card
+// - id REQUIRED
+// - card title REQUIRED
+// - board-id link with board(id) in Board db
+// - card message
+// - vote_count
+
+// Card comments table
+// - id REQUIRED
+// - card-id link with card(id) in Card db
+// - user_comment string
