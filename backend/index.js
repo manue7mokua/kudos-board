@@ -66,6 +66,20 @@ app.post("/boards/:boardId", async (req, res) => {
     res.json(newCard);
 });
 
+app.delete("/boards/:boardId/:cardId", async (req, res) => {
+    const boardId = parseInt(req.params.boardId);
+    const id = parseInt(req.params.cardId);
+
+    await prisma.cards.delete({
+      where: {
+        id,
+        boardId
+      }
+    });
+
+    res.json({ message: "Card deleted successfully" });
+  });
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
