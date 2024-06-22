@@ -50,5 +50,11 @@ const deleteCard = async (boardId, cardId) => {
     return response.data;
   }
 
+const upvoteCard = async (boardId, cardId) => {
+    const response = await axios.post(`http://localhost:3000/boards/${boardId}/${cardId}`);
+    const updatedCard = response.data;
+    console.log(response.data)
+  };
+
 // export default dashboardData;B
-export { dashboardData, addBoardData, specificBoardCardsData, addCardData, deleteBoard, deleteCard }
+export { dashboardData, addBoardData, specificBoardCardsData, addCardData, deleteBoard, deleteCard, upvoteCard }

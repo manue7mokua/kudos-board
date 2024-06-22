@@ -3,7 +3,7 @@ import './BoardPage.css'
 import CreateCardForm from '../../Components/CreateCardForm/CreateCardForm';
 import { specificBoardCardsData } from '../../boardapi';
 import { useParams, useNavigate } from 'react-router-dom';
-import { addCardData, deleteCard } from '../../boardapi';
+import { addCardData, deleteCard, upvoteCard } from '../../boardapi';
 
 const BoardPage = () => {
   const { boardId } = useParams();
@@ -37,6 +37,16 @@ const BoardPage = () => {
     });
   };
 
+  const handleUpvoteCard = (cardId) => {
+    upvoteCard(boardId, cardId)
+    .then(updatedCard => {
+      // Update the local state to reflect the new upvote count
+      setCards(cards);
+    }).catch(error => {
+      console.error('Failed to upvote card:', error);
+    });
+  }
+
   return (
     <div>
      <button onClick={() => setShowModal(true)}>Create New Card</button>
@@ -56,7 +66,7 @@ const BoardPage = () => {
 
             <div className='board-buttons'>
               <button onClick={() => handleViewCard(card.id)}>View Card</button>
-              <button onClick={() => upvoteCard(card.id)}>Upvote: {card.upvote}</button>
+              <button onClick={() => handleUpvoteCard(card.id)}>Upvote: {card.upvote}</button>
               <button onClick={() => handleDeleteCard(card.id)}>Delete Card</button>
             </div>
           </div>
