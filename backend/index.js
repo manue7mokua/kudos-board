@@ -80,6 +80,22 @@ app.delete("/boards/:boardId/:cardId", async (req, res) => {
     res.json({ message: "Card deleted successfully" });
   });
 
+app.post("/boards/:boardId/:cardId", async (req, res) => {
+    const boardId = parseInt(req.params.boardId);
+    const id = parseInt(req.params.cardId);
+    try {
+      const updatedCard = await prisma.cards.update({
+        where: { id, boardId },
+        data: {
+          upvote: { increment: 1 }
+        }
+      });
+      res.json(updatedCard);
+    } catch (error) {
+      res.status(500).json({ error: "Could not upvote the card" });
+    }
+  });
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
