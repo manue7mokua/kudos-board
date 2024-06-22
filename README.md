@@ -48,23 +48,21 @@ Deployed Application (optional): [Kudos Board Deployed Site](ADD_LINK_HERE)
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. (🚫 Remove this paragraph after adding walkthrough video)
-
-`ADD_EMBEDDED_CODE_HERE`
+`[ADD_EMBEDDED_CODE_HERE](https://www.loom.com/share/1542584604474eb497ee5d8c8a21b2e1)`
 
 ### Reflection
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Add your response here
+I was not familiar with how to use prisma because I had not used it before but after the instructors did a walkthrough demo i got the hang of it and was able to start working on my backend.
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
 
-Add your response here
+I would work on improving my CSS for this week's project. I decided to focus on getting the functionality right first so I might spend more time this weekend improving the css of my application. I will also work on some of the strech features.
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+Overall, I think my functionality works well, maybe something I had worked on that didn't quite reflect on the demo was sorting the cards on the page in descending order of the vote count. I noticed that some of my peers (I sit next to a CSS genius) had some awesome styling on their applications so that could be something I would want to get done.
 
 ### Open-source libraries used
 
