@@ -45,5 +45,10 @@ const addCardData = async (cardInfo, boardId) => {
     return response.data;
 }
 
+const deleteCard = async (boardId, cardId) => {
+    const response = await axios.delete(`http://localhost:3000/boards/${boardId}/${cardId}`);
+    return response.data;
+  }
+
 // export default dashboardData;B
-export { dashboardData, addBoardData, specificBoardCardsData, addCardData, deleteBoard }
+export { dashboardData, addBoardData, specificBoardCardsData, addCardData, deleteBoard, deleteCard }

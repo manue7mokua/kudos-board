@@ -31,8 +31,14 @@ const BoardGrid = () => {
       }
     )
   }, []);
-  console.log(dashboardData())
-  console.log(boards)
+
+  useEffect(() => {
+    const filtered = boards.filter(board => {
+      return (selectedCategory ? board.category === selectedCategory : true) &&
+             (searchQuery ? board.title.toLowerCase().includes(searchQuery.toLowerCase()) : true);
+    });
+    setFilteredBoards(filtered);
+  }, [boards, selectedCategory, searchQuery]);
 
   // Filter functionality setup
   const handleFilterChange = (category) => {
@@ -57,7 +63,6 @@ const BoardGrid = () => {
 
   // Board deletion setup
   const deleteBoardFunc = (boardId) => {
-    // will make an API request to delete the board
     // Call the new deleteBoard function
     deleteBoard(boardId).then(() => {
       // Update the boards state to remove the deleted board
@@ -91,7 +96,7 @@ const BoardGrid = () => {
 
       <input type="search" value={searchQuery} onChange={handleSearchChange} placeholder='Search for a board...'/>
       <div className="boards">
-        {boards.map((board) => (
+        {filteredBoards.map((board) => (
           <div key={board.id} className="board">
             <img src={`https://picsum.photos/200/300?random=${board.id}`} alt={board.title} className='board-image'/>
             <h2>{board.title}</h2>
