@@ -45,7 +45,7 @@ const CreateBoardForm = ({ onSubmit }) => {
           <label>
             Category:
             <select value={category} onChange={(event) => setCategory(event.target.value)}>
-              <option value="">Inspiration</option>
+              <option value="inspiration">Inspiration</option>
               <option value="recent">Recent</option>
               <option value="celebration">Celebration</option>
               <option value="thank-you">Thank You</option>
