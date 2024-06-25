@@ -48,7 +48,7 @@ Deployed Application (optional): [Kudos Board Deployed Site](ADD_LINK_HERE)
 
 ### Walkthrough Video
 
-`[(https://www.loom.com/share/55a03e346b9346b49c0d2f03d64332dd)]`
+[DEMO:](https://www.loom.com/share/55a03e346b9346b49c0d2f03d64332dd)
 
 ### Reflection
 
